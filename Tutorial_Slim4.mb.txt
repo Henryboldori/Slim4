@@ -1,0 +1,53 @@
+Fundamentos do Slim 4, framework PHP micro-framework
+
+Directory Structure
+        Diferenciar entre áreas públicas e não públicas;
+        Pasta public/ deve ser definida como DocumentRoot para o  site;
+        Todos os outros diretórios (dentro do diretório raiz do projeto) devem permanecer não públicos e não devem ser acessíveis pela web
+
+Autoloader
+        PSR-4 Autoloader;
+        O PSR-4 define um padrão para a nomenclatura de classes e a estrutura de diretórios, facilitando a organização e o carregamento automático de classes;
+        Novo diretório: src/
+                
+Configuration
+        Configurar os arquivos de configuração;
+        Diretório para todos os arquivos de configuração é: config/
+
+DI Container (Dependency injection)
+        Técnica de programação que separa a criação de objetos de seu uso;
+
+DI Container Definitions
+       Pode se usar o DI Container para construir a instância do Slim App e para carregar as configurações da aplicação;
+       O identificador App::class é necessário para garantir que usemos o mesmo objeto App em toda a aplicação e para garantir que o objeto App use o mesmo objeto DI Container;
+
+Bootstrap
+        O processo de inicialização do aplicativo contém o código que é executado quando a aplicação (solicitação) é iniciada;
+        Inclui o autoloader do composer e continua a construir o contêiner de DI, cria o aplicativo e registra as entradas de rotas + middleware;
+
+Front Controller
+        Ponto de entrada para o seu aplicativo slim e manipula todas as solicitações canalizando as solicitações através de um único objeto manipulador;
+        Sempre colocar seu Front Controller (index.php) no diretório public/.
+        O diretório public/ é apenas o DocumentRoot do seu servidor web, mas nunca é parte do seu caminho base e da url oficial;
+
+Middleware
+        Pode ser executado antes e depois do seu aplicativo Slim para ler ou manipular o objeto de solicitação e resposta;
+        Necessário adicionar o Slim RoutingMiddleware e ErrorMiddleware.
+        O RoutingMiddleware roteará e despachará as solicitações recebidas e o ErrorMiddleware é capaz de capturar todas as exceções para renderizar uma página de erro;
+
+Routes
+        Caminho de URL que pode ser mapeado para um manipulador específico;
+        Pode ser uma função simples ou uma classe invocável;
+        O parâmetro -S localhost:8080 define o nome do servidor e a porta. O parâmetro -t public/ especifica o diretório raiz do documento com o arquivo index.php.
+        Funções anônimas como manipuladores de rota são bastante "caras", porque o PHP precisa criar todas as funções para cada solicitação
+
+Single Action Controller
+        É representado por sua própria classe e tem apenas um método público;
+                Coleta entrada da solicitação HTTP (se necessário)
+                Invoca o Domínio com essas entradas (se necessário) e retém o resultado
+                Constrói uma resposta HTTP (tipicamente com os resultados da invocação do Domínio).
+        
+Conclusion     
+        Slim - Para lidar com roteamento e despacho; 
+        Single Action Controllers - Manipulação de solicitação e resposta;    
+        
